@@ -67,7 +67,7 @@ export default createWidget('developing-solution', {
     const cate = attrs.category;
     const path = getOwner(this).lookup('controller:application').get('currentPath');
 
-    
+
  if (path == "discovery.latest" || path == "discovery.top")
     {
 contents.push(h("h2.novatitle",[h("a",{attributes:{href:"https://padpors.com/t/نوآوری-جمعی-در-پادپُرس-چه-جوری-کار-میکنه؟/3601#No" ,target: "_blank"}},"راه‌حل‌"),"های نوآوران"]));
@@ -160,7 +160,7 @@ contents.push(h("h2.novatitle",[h("a",{attributes:{href:"https://padpors.com/t/�
           success: function(res){
               data = res;
           }});
-        if (data.topic_list.topics.length == 0) 
+        if (data && data.topic_list.topics.length == 0)
         {
             $.ajax({
           url: "https://padpors.com/c/" + parent.slug + "/l/top/monthly.json",
@@ -170,7 +170,7 @@ contents.push(h("h2.novatitle",[h("a",{attributes:{href:"https://padpors.com/t/�
               data = res;
           }});
         }
-        if (data.topic_list.topics.length == 0) 
+        if (data && data.topic_list.topics.length == 0)
         {
             $.ajax({
           url: "https://padpors.com/c/" + parent.slug + "/l/top/quarterly.json",
@@ -180,7 +180,7 @@ contents.push(h("h2.novatitle",[h("a",{attributes:{href:"https://padpors.com/t/�
               data = res;
           }});
         }
-        if (data.topic_list.topics.length == 0) 
+        if (data && data.topic_list.topics.length == 0)
         {
             $.ajax({
           url: "https://padpors.com/c/" + parent.slug + "/l/top/yearly.json",
@@ -190,7 +190,7 @@ contents.push(h("h2.novatitle",[h("a",{attributes:{href:"https://padpors.com/t/�
               data = res;
           }});
         }
-        if (data.topic_list.topics.length == 0) 
+        if (data && data.topic_list.topics.length == 0)
         {
             $.ajax({
           url: "https://padpors.com/c/" + parent.slug + "/l/top/all.json",
@@ -200,23 +200,25 @@ contents.push(h("h2.novatitle",[h("a",{attributes:{href:"https://padpors.com/t/�
               data = res;
           }});
         }
-        for (var i = 0 ; i < data.topic_list.topics.length ; i++)
-        {
-            new_topic = data.topic_list.topics[i];
-            var imgUrl;
-            if(new_topic.image_url)
-                imgUrl = new_topic.image_url;
-            else
-                imgUrl = "https://padpors.com/uploads/default/original/2X/e/e4642d67129d101367059711444b00b266555418.jpg";
-            contents.push(h("div.solution",[
-            h("a.image-sulotion", {attributes: {href: "https://padpors.com/t/" + new_topic.title + "/" + new_topic.id}}, h("img", {attributes:{src: imgUrl}})),
-            h("a.topiclink",{attributes: {href: "https://padpors.com/t/" + new_topic.title + "/" + new_topic.id }}, new_topic.title),
-            h("span.views", "بازدید: " + new_topic.views)]));
-            if (i == 5)
-                break;
+        if (data) {
+          for (var i = 0 ; i < data.topic_list.topics.length ; i++)
+          {
+              new_topic = data.topic_list.topics[i];
+              var imgUrl;
+              if(new_topic.image_url)
+                  imgUrl = new_topic.image_url;
+              else
+                  imgUrl = "https://padpors.com/uploads/default/original/2X/e/e4642d67129d101367059711444b00b266555418.jpg";
+              contents.push(h("div.solution",[
+              h("a.image-sulotion", {attributes: {href: "https://padpors.com/t/" + new_topic.title + "/" + new_topic.id}}, h("img", {attributes:{src: imgUrl}})),
+              h("a.topiclink",{attributes: {href: "https://padpors.com/t/" + new_topic.title + "/" + new_topic.id }}, new_topic.title),
+              h("span.views", "بازدید: " + new_topic.views)]));
+              if (i == 5)
+                  break;
+          }
         }
     }
-    else if (cate && topic == undefined) 
+    else if (cate && topic == undefined)
     {
         contents.push(h("h2", "برترین‌ها"));
         var data;
@@ -228,7 +230,7 @@ contents.push(h("h2.novatitle",[h("a",{attributes:{href:"https://padpors.com/t/�
           success: function(res){
               data = res;
           }});
-        if (data.topic_list.topics.length == 0) 
+        if (data.topic_list.topics.length == 0)
         {
             $.ajax({
           url: "https://padpors.com/c/" + cate.slug + "/l/top/monthly.json",
@@ -238,7 +240,7 @@ contents.push(h("h2.novatitle",[h("a",{attributes:{href:"https://padpors.com/t/�
               data = res;
           }});
         }
-        if (data.topic_list.topics.length == 0) 
+        if (data.topic_list.topics.length == 0)
         {
             $.ajax({
           url: "https://padpors.com/c/" + cate.slug + "/l/top/quarterly.json",
@@ -248,7 +250,7 @@ contents.push(h("h2.novatitle",[h("a",{attributes:{href:"https://padpors.com/t/�
               data = res;
           }});
         }
-        if (data.topic_list.topics.length == 0) 
+        if (data.topic_list.topics.length == 0)
         {
             $.ajax({
           url: "https://padpors.com/c/" + cate.slug + "/l/top/yearly.json",
@@ -258,7 +260,7 @@ contents.push(h("h2.novatitle",[h("a",{attributes:{href:"https://padpors.com/t/�
               data = res;
           }});
         }
-        if (data.topic_list.topics.length == 0) 
+        if (data.topic_list.topics.length == 0)
         {
             $.ajax({
           url: "https://padpors.com/c/" + cate.slug + "/l/top/all.json",
